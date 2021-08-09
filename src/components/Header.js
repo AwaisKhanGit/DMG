@@ -76,8 +76,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
     const tabs = (
       <React.Fragment>
-        <Tabs value={props.value} onChange={handleChange} 
-        indicatorColor="primary"
+        <Tabs value={value} onChange={handleChange} 
+        indicatorColor="secondary"
         >
             {routes.map((route,index)=>(
 
