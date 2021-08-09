@@ -1,5 +1,5 @@
 import Header from "./components/Header";
-import { ThemeProvider } from '@material-ui/styles'
+import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './components/ui/Theme';
 import {BrowserRouter,Switch,Route} from 'react-router-dom';
 import SubGrade from './components/Tests/SubGrade'
