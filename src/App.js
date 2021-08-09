@@ -10,8 +10,8 @@ function App() {
     <BrowserRouter>
      <Header/>
      <Switch>
-            <Route exact path="/subgrade" render={(props)=>(<SubGrade/>)} />
-          </Switch>
+        <Route exact path="/subgrade" render={(props)=>(<SubGrade/>)} />
+    </Switch>
    </BrowserRouter>
  </ThemeProvider>
   );
