@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
 import Button from '@material-ui/core/Button';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -8,21 +9,29 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Checkbox from '@material-ui/core/Checkbox';
 import {DropzoneDialog} from 'material-ui-dropzone'
+import SaveIcon from '@material-ui/icons/Save';
+import ImageIcon from '@material-ui/icons/Image';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
     },
     heading: {
-      fontSize: theme.typography.pxToRem(15),
-      flexBasis: '33.33%',
-      flexShrink: 0,
-    },
-    secondaryHeading: {
-      fontSize: theme.typography.pxToRem(15),
-      color: theme.palette.text.secondary,
-    },
+      fontSize: theme.typography.pxToRem(18),
+      fontWeight:"bold",
+      margin:"auto"
+    }
   }));
+
+  const GreenCheckbox = withStyles({
+    root: {
+      color: green[400],
+      '&$checked': {
+        color: green[600],
+      },
+    },
+    checked: {},
+  })((props) => <Checkbox color="default" {...props} />);
   
 
 const TestAccordians = () => {
@@ -32,22 +41,16 @@ const TestAccordians = () => {
     const [passChecked, setPassChecked] = useState(true);
     const [failChecked, setFailChecked] = useState(false);
     const [open, setopen] = useState(false)
-    // eslint-disable-next-line 
     const [files, setfiles] = useState([])
 
 
-    const handleClose = ()=>{
-        setopen(false)
-    }
 
     const handleSave = (files) =>{
         setfiles(files)
         setopen(false)
     }
 
-    const handleOpen = () => {
-        setopen(true)
-    }
+
 
 
 
@@ -72,16 +75,12 @@ const TestAccordians = () => {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography className={classes.secondaryHeading}>Core cutter method or sand replacement method for relative compaction</Typography>
+          <Typography className={classes.heading}>Core cutter method or sand replacement method for relative compaction</Typography>
         </AccordionSummary>
         <AccordionDetails>
             <Typography variant = "body1">
                 Pass <span>
-                <Checkbox
-                checked={passChecked}
-                onChange={handlePassBoxChange}
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
+                <GreenCheckbox checked={passChecked} onChange={handlePassBoxChange} name="checkedG" />
                 </span>
             </Typography>
             <Typography variant = "body1">
@@ -89,16 +88,17 @@ const TestAccordians = () => {
                 <Checkbox
                 checked={failChecked}
                 onChange={handleFailBoxChange}
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
+                inputProps={{ 'aria-label': 'primary checkbox' }}
                 />
                 </span>
             </Typography>
-            <Button onClick={handleOpen} variant="outlined" style={{marginRight:"1rem",marginLeft:"2rem"}}>
-                  Add Image
+            <Button variant="contained" color="secondary" onClick={()=>setopen(true)} style={{marginRight:"1rem",marginLeft:"2rem"}}
+            startIcon={<ImageIcon />} >
+                  Add Image {files ? `(${files.length} added)` : null}
             </Button>
 
-            <Button variant="outlined">
-                  Submit
+            <Button variant="contained" color="primary" startIcon={<SaveIcon />}>
+                  Save and Upload
             </Button>
 
             <DropzoneDialog
@@ -106,8 +106,9 @@ const TestAccordians = () => {
                 onSave={handleSave}
                 acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
                 showPreviews={true}
-                maxFileSize={5000000}
-                onClose={handleClose}
+                maxFileSize={5242880}
+                onClose={()=>setopen(false)}
+                showFileNamesInPreview={true}
             />
         </AccordionDetails>
       </Accordion>
