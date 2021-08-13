@@ -32,6 +32,7 @@ const TestAccordians = () => {
     const [passChecked, setPassChecked] = useState(true);
     const [failChecked, setFailChecked] = useState(false);
     const [open, setopen] = useState(false)
+    // eslint-disable-next-line 
     const [files, setfiles] = useState([])
 
 
@@ -42,7 +43,6 @@ const TestAccordians = () => {
     const handleSave = (files) =>{
         setfiles(files)
         setopen(false)
-        console.log(files)
     }
 
     const handleOpen = () => {
